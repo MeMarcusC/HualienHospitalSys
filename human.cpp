@@ -1,5 +1,4 @@
-class Human
-{
+class Human {
 private:
     string fName, lName, mName, address;
     int age, day, month, year, ftH, inH, wght;
@@ -21,10 +20,12 @@ public:
     {
         // Constructor body
     }
-    void setLife(bool lf)
-    {
+
+    // Setter methods for private member variables
+    void setLife(bool lf) {
         life = lf;
     }
+
     void setFirstNam(const string& newFirstName) {
         fName = newFirstName;
     }
@@ -45,20 +46,22 @@ public:
         age = newAge;
     }
 
-    void setDa(int newDay){
+    void setDa(int newDay) {
         day = newDay;
-
     }
+
     void setMont(int newMonth) {
-        month = newMonth;    }
-    void setYea( int newYear) {
-  
+        month = newMonth;
+    }
+
+    void setYea(int newYear) {
         year = newYear;
     }
 
     void setHeightFee(int newFtHeight) {
         ftH = newFtHeight;
     }
+
     void setHeightInche(int newInHeight) {
         inH = newInHeight;
     }
@@ -76,25 +79,40 @@ public:
     }
 
     // Getter functions for accessing private member variables
+
     string getFirstName() const { return fName; }
+
     string getLastName() const { return lName; }
+
     string getMiddleName() const { return mName; }
+
     string getAddress() const { return address; }
+
     long getPhoneNumber() const { return phone; }
+
     int getAge() const { return age; }
+
     int getDayOfBirth() const { return day; }
+
     int getMonthOfBirth() const { return month; }
+
     int getYearOfBirth() const { return year; }
-    string getBirthday() const
-    {
-        const string months[13] = {"January","February","March","April","May","June","July","August","September","October","November","December"};
-        string mnth = months[getMonthOfBirth()-1];
-        string retrn = mnth +" "+ to_string(getDayOfBirth())+", "+to_string(getYearOfBirth());
-        return retrn;
+
+    // Custom getter for formatted birthday
+    string getBirthday() const {
+        const string months[12] = {"January", "February", "March", "April", "May", "June",
+                                   "July", "August", "September", "October", "November", "December"};
+        string monthStr = months[month - 1];
+        return monthStr + " " + to_string(day) + ", " + to_string(year);
     }
+
     int getHeightFeet() const { return ftH; }
+
     int getHeightInches() const { return inH; }
+
     int getWeight() const { return wght; }
+
     bool getSex() const { return sex; }
+
     bool isAlive() const { return life; }
 };

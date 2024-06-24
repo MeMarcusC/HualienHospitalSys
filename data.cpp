@@ -3,7 +3,7 @@
 vector<Doctor> createDoctors()
 {
     vector<Doctor> doctors;
-     // Create instances of Doctor and Patient
+     // Create instances of Doctor
     Doctor doctor("Alice", "Smith", "Marie", "456 Oak St", 9876543210,
                   35, 25, 7, 1989, 5, 8, 160, false, true,
                   "Cardiology", 10, "CARD 56-7");
@@ -59,17 +59,12 @@ vector<Doctor> createDoctors()
     doctors.push_back(doctor9);
     doctors.push_back(doctor10);
 
-   /* // Define a time slot for the appointment
-    TimeSlot appointmentTime(930, 1030); // 9:30 AM to 10:30 AM
-
-    // Schedule an appointment
-    Scheduler::scheduleAppointment(doctor, patient, appointmentTime);*/
     return doctors;
 }
 
 vector<Patient> createPatients() {
     vector<Patient> patients;
-
+    // Create instances of Patient
     Patient patient("Bob", "Johnson", "Michael", "123 Maple Ave", 9882317890,
                     45, 15, 3, 1979, 6, 1, 180, true, true,
                     "Room 101", true, false, true, true,
@@ -186,7 +181,7 @@ Patient patient15("Charlotte", "Green", "Rose", "101 Maple Ave", 5432109876,
                   "Henry Green", 8901234567);
 
 
-
+    // Push patients into vector
     patients.push_back(patient);
     patients.push_back(patient1);
     patients.push_back(patient2);
@@ -203,9 +198,7 @@ Patient patient15("Charlotte", "Green", "Rose", "101 Maple Ave", 5432109876,
     patients.push_back(patient13);
     patients.push_back(patient14);
     patients.push_back(patient15);
-   // patients.push_back(Patient("Jane", "Smith", 25));
- //   patients.push_back(Patient("Michael", "Johnson", 35));
-
+  
     return patients;
 }
 void appointments(vector<Doctor>* drs, vector<Patient>* pts)

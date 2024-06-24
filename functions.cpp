@@ -1,74 +1,82 @@
-
 string Patient::getDoctorN() const{
-        string drn;
-        drn = "Dr."+ assignedDoctor->getLastName();
-        return drn;
-    }
-int Patient::getDoctorid() const{
-        int id;
-        id =assignedDoctor->getID();
-        return id;
-    }
-void Patient::removeD() {
-        doc = false;
-         // Optionally, set to nullptr for safety
-    }
-void Doctor::removePatient(Patient* patient){
-        auto it = std::find(patientsUnderCare.begin(), patientsUnderCare.end(), patient);
-        if (it != patientsUnderCare.end()) {
-            patientsUnderCare.erase(it);
-        }
-    }
-void Patient::display () const
-    {
-        cout << "Loading Patient Information...\n";
-        cout<<"\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+    // Get the last name of the assigned doctor prefixed with "Dr."
+    string drn;
+    drn = "Dr."+ assignedDoctor->getLastName();
+    return drn;
+}
 
-        char sx = getSex()? 'M' : 'F';
-        cout<<  "Patient ID : "<<getPid()<<endl;
-        cout<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n";
-         if(!isAlive())
-        {
+int Patient::getDoctorid() const{
+    // Get the ID of the assigned doctor
+    int id;
+    id =assignedDoctor->getID();
+    return id;
+}
+
+void Patient::removeD() {
+    // Set the assigned doctor to nullptr (optionally, for safety)
+    doc = false;
+    // Optionally, set to nullptr for safety
+}
+
+void Doctor::removePatient(Patient* patient){
+    // Remove a patient from the doctor's list of patients under care
+    auto it = std::find(patientsUnderCare.begin(), patientsUnderCare.end(), patient);
+    if (it != patientsUnderCare.end()) {
+        patientsUnderCare.erase(it);
+    }
+}
+
+void Patient::display () const
+{
+    // Display patient information
+    cout << "Loading Patient Information...\n";
+    cout<<"\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+
+    char sx = getSex()? 'M' : 'F';
+    cout<<  "Patient ID : "<<getPid()<<endl;
+    cout<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n";
+    if(!isAlive())
+    {
         cout<<"Notice: Unfortunately Patient is Deceased.\n";
         cout<<  "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n";
-        }
-        cout << "Name: " << getFirstName() << " " << getMiddleName() << " " << getLastName()<< endl;
-        cout << "Age : "<< getAge() << endl;
-        cout << "Sex : " << sx<< endl;
-        cout << "Height  : "<< getHeightFeet() <<" FT "<< getHeightInches()<<" IN"<<endl;
-        cout << "Weight  : "<< getWeight()<<" LB"<<endl;
-        cout << "Birthday: " << getBirthday()<<endl;
-        cout<<  "~~  ~~  ~~  ~~  ~~  ~~  ~~  ~~  ~~  ~~  ~~  ~~  ~~  ~~  ~~  ~~  \n";
-        cout << "Room   : " << getRoom() << endl;
-        cout << "Address: "<< getAddress()<<endl;
-        cout << "Phone Number: +" << getPhoneNumber()<<endl;
-        cout<<"\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n";
-        if(doc)
-        {
+    }
+    cout << "Name: " << getFirstName() << " " << getMiddleName() << " " << getLastName()<< endl;
+    cout << "Age : "<< getAge() << endl;
+    cout << "Sex : " << sx<< endl;
+    cout << "Height  : "<< getHeightFeet() <<" FT "<< getHeightInches()<<" IN"<<endl;
+    cout << "Weight  : "<< getWeight()<<" LB"<<endl;
+    cout << "Birthday: " << getBirthday()<<endl;
+    cout<<  "~~  ~~  ~~  ~~  ~~  ~~  ~~  ~~  ~~  ~~  ~~  ~~  ~~  ~~  ~~  ~~  \n";
+    cout << "Room   : " << getRoom() << endl;
+    cout << "Address: "<< getAddress()<<endl;
+    cout << "Phone Number: +" << getPhoneNumber()<<endl;
+    cout<<"\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n";
+    if(doc)
+    {
         cout<<  "Assigned Doctor  : "<< getDoctorN()<<endl;
         cout<<  "Doctor's ID No.  : "<< getDoctorid()<<endl;
-        }
-        cout << "Emergency Contact: " << getEName() << endl;
-        cout << "Emergency Phone  : +"<< getEPhone()<<endl;
-        
-        if (allergies)
-        displayAllergies();
-        displayAppointment();
     }
+    cout << "Emergency Contact: " << getEName() << endl;
+    cout << "Emergency Phone  : +"<< getEPhone()<<endl;
 
+    if (allergies)
+        displayAllergies();
+    displayAppointment();
+}
 
 int findLP( vector<Patient>* pts,int id ) 
 {
+    // Find the index of a patient in the vector based on ID
     bool found;
     int pct= -1;
     vector<Patient>& tempP = *pts;
     for (const auto& patient : tempP) {
         pct++;
-                if (patient.getPid() == id) {
-                    found = true;
-                    break;
-                }
-            }
+        if (patient.getPid() == id) {
+            found = true;
+            break;
+        }
+    }
     if(!found)
         return -1;
     return pct;
@@ -76,25 +84,25 @@ int findLP( vector<Patient>* pts,int id )
 
 int findLD(vector<Doctor>* drs,  int id) 
 {
+    // Find the index of a doctor in the vector based on ID
     bool found;
     int dct= -1;
     vector<Doctor>& tempD = *drs;
-     for (const auto& doctor : tempD) {
+    for (const auto& doctor : tempD) {
         dct++;
-                if (doctor.getID() == id) {
-                    found = true;
-                    break;
-                }
-            }
+        if (doctor.getID() == id) {
+            found = true;
+            break;
+        }
+    }
     if (!found)
         return -1;
     return dct;
 }
 
-
 void makeappointment(vector<Doctor>* drs, vector<Patient>* pts,int dd, int pd, int start, int end)
 {
-
+    // Make an appointment between a doctor and a patient
     int pct,dct;
     vector<Doctor>& tempD = *drs;
     vector<Patient>& tempP = *pts;
@@ -102,20 +110,19 @@ void makeappointment(vector<Doctor>* drs, vector<Patient>* pts,int dd, int pd, i
     pct = findLP(pts,pd);
     if( pct != -1&& dct != -1)
     {
-
-    TimeSlot appointmentTime(start, end); // 9:30 AM to 10:30 AM
-
-    // Schedule an appointment
-    Scheduler::scheduleAppointment(tempD[dct], tempP[pct], appointmentTime);
+        TimeSlot appointmentTime(start, end); // 9:30 AM to 10:30 AM
+        // Schedule an appointment
+        Scheduler::scheduleAppointment(tempD[dct], tempP[pct], appointmentTime);
     }
     else
     {
         cout<<"Patient Or Doctor ID Not Found!\n";
     }
 }
+
 void cancelappointment(vector<Doctor>* drs, vector<Patient>* pts,int dd, int pd, TimeSlot tm)
 {
-
+    // Cancel an appointment between a doctor and a patient
     int pct,dct;
     vector<Doctor>& tempD = *drs;
     vector<Patient>& tempP = *pts;
@@ -123,19 +130,18 @@ void cancelappointment(vector<Doctor>* drs, vector<Patient>* pts,int dd, int pd,
     pct = findLP(pts,pd);
     if( pct != -1&& dct != -1)
     {
-
-
-    // Schedule an appointment
-    Scheduler::cancelAppointment(tempD[dct], tempP[pct], tm);
+        // Cancel an appointment
+        Scheduler::cancelAppointment(tempD[dct], tempP[pct], tm);
     }
     else
     {
         cout<<"Patient Or Doctor ID Not Found!\n";
     }
 }
+
 void cancelappointmentD(vector<Doctor>* drs, vector<Patient>* pts,int dd, int pd, TimeSlot tm)
 {
-
+    // Cancel an appointment by doctor
     int pct,dct;
     vector<Doctor>& tempD = *drs;
     vector<Patient>& tempP = *pts;
@@ -143,18 +149,14 @@ void cancelappointmentD(vector<Doctor>* drs, vector<Patient>* pts,int dd, int pd
     pct = findLP(pts,pd);
     if( pct != -1&& dct != -1)
     {
-
-
-    // Schedule an appointment
-    Scheduler::cancelAppointmentDel(tempD[dct], tempP[pct], tm);
+        // Cancel an appointment
+        Scheduler::cancelAppointmentDel(tempD[dct], tempP[pct], tm);
     }
     else
     {
         cout<<"Patient Or Doctor ID Not Found!\n";
     }
 }
-
-
 
 // Function to display patient data based on search criteria
 void displayPatients(const vector<Patient>& patients, int searchCriterion, const string& searchTerm) {

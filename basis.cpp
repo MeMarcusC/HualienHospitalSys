@@ -18,7 +18,7 @@ struct TimeSlot {
 // Struct to manage different types of allergies
 struct Allergies {
     map<int, vector<string> > mpAlToMn;
-    vector<string> thr;   // Allergy type: threat
+    vector<string> thr;   // Allergy type: other
     vector<string> plln;  // Allergy type: pollen
     vector<string> fd;    // Allergy type: food
     vector<string> mdtn;  // Allergy type: medication
